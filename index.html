@@ -1,0 +1,47 @@
+<html>
+    <head>
+        <title>
+            Solana Airdrop Website
+        </title>
+        <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+        <link href="style1.css" rel="stylesheet">
+        <script src="https://unpkg.com/@solana/web3.js@latest/lib/index.iife.min.js"></script>
+        <script>
+            const { Connection, PublicKey } = solanaWeb3;
+        </script>
+    </head>
+    <body>
+        <form>
+            <div class="container">
+                <div class="container__item">
+                    <form class="form">
+                        <input type="text" id="inputText" class="form__field" placeholder="Enter Solana Address" />
+                        <button type="submit" onclick="submitForm()" class="btn btn--primary btn--inside uppercase">Airdrop</button>
+                    </form>
+                </div>
+            </div>
+
+        </form>
+
+        <script>
+            function submitForm(){
+
+                var solanaPublicKey = document.getElementById("inputText").value;
+
+                if(solanaPublicKey == '')
+                {
+                    alert("Please enter solana address");
+                    return;
+                }
+
+                const connection = new Connection("https://api.devnet.solana.com");
+                
+                let publickKeyObject = new PublicKey(solanaPublicKey);
+
+                let txhash = connection.requestAirdrop(publickKeyObject, 1e9);
+
+                console.log(`txhash: ${txhash}`);
+            }
+        </script>
+    </body>
+</html>
